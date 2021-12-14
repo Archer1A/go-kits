@@ -24,9 +24,9 @@ type LoggerFormatter func(param LogFormatterParams) string
 
 var defaultLogFormatter = func(param LogFormatterParams) string {
 	if param.ErrMessage != "" {
-		return fmt.Sprintf("[%s] | %10v | %s | %s://%s:%d/%s\n", param.Method, param.Latency, param.ErrMessage, param.Request.Scheme(), param.Request.ServiceName, param.Request.ServicePort, param.Path)
+		return fmt.Sprintf("[%s] | %10v | %s | %s/%s\n", param.Method, param.Latency, param.ErrMessage, param.Request.HostName, param.Path)
 	}
-	return fmt.Sprintf("[%s] | %10v | %d | %s://%s:%d/%s\n", param.Method, param.Latency, param.StatusCode, param.Request.Scheme(), param.Request.ServiceName, param.Request.ServicePort, param.Path)
+	return fmt.Sprintf("[%s] | %10v | %d | %s/%s\n", param.Method, param.Latency, param.StatusCode, param.Request.HostName, param.Path)
 }
 
 type LoggerConfig struct {

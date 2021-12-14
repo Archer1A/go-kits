@@ -11,6 +11,7 @@ import (
 type Request struct {
 	ServicePort uint
 	ServiceName string
+	HostName    string
 	Path        string
 	Body        interface{}
 	Query       interface{}
@@ -56,6 +57,11 @@ func (r *Request) Port(port uint) *Request {
 		return r
 	}
 	r.ServicePort = port
+	return r
+}
+
+func (r *Request) WithHostName(hostName string) *Request {
+	r.HostName = hostName
 	return r
 }
 
@@ -204,7 +210,7 @@ func (r *Request) do(rsp Response) {
 }
 
 func (r *Request) String() string {
-	return fmt.Sprintf("[%s] %s://%s:%d/%s", r.ctx.Method, r.Scheme(), r.ServiceName, r.ServicePort, r.Path)
+	return fmt.Sprintf("[%s] %s/%s", r.ctx.Method, r.HostName, r.Path)
 }
 
 func (r *Request) Scheme() string {

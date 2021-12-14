@@ -45,7 +45,6 @@ func doHttpReq(ctx *Context) {
 	}
 
 	reqUrl, err := GetUrl(req)
-
 	if err != nil {
 		errHandle(err)
 		return
@@ -106,28 +105,11 @@ func doHttpReq(ctx *Context) {
 }
 
 func GetUrl(req *Request) (string, error) {
-	if req.ServicePort == 0 {
-		if req.Secure {
-			req.ServicePort = 443
-		} else {
-			req.ServicePort = 80
-		}
+	reqUrl, err := url.Parse(req.HostName)
+	if err != nil {
+		return "", err
 	}
-	reqUrl := url.URL{
-		Host:   fmt.Sprintf("%s:%d", req.ServiceName, req.ServicePort),
-		Path:   req.Path,
-		Scheme: schemeHttp,
-	}
-	if req.ServicePort == 80 {
-		reqUrl = url.URL{
-			Host:   fmt.Sprintf("%s", req.ServiceName),
-			Path:   req.Path,
-			Scheme: schemeHttp,
-		}
-	}
-	if req.Secure {
-		reqUrl.Scheme = schemeHttps
-	}
+	reqUrl.Path = req.Path
 	if req.Query != nil {
 		queriesMap, err := formToMap(req.Query, queryTagName)
 		if err != nil {
