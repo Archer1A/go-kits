@@ -9,6 +9,7 @@ import (
 )
 
 type Request struct {
+	Client      *http.Client
 	ServicePort uint
 	ServiceName string
 	HostName    string

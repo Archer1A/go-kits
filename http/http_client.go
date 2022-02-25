@@ -83,7 +83,10 @@ func doHttpReq(ctx *Context) {
 		}
 	}
 
-	httpResponse, err := http.DefaultClient.Do(httpRequest)
+	if req.Client == nil {
+		req.Client = http.DefaultClient
+	}
+	httpResponse, err := req.Client.Do(httpRequest)
 	if err != nil {
 		errHandle(err)
 		return
