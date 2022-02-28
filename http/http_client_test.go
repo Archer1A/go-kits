@@ -204,7 +204,7 @@ func Test_getUrl(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetUrl(tt.args.req)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetUrl() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetUrl()  error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
