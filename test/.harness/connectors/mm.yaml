@@ -1,0 +1,19 @@
+connector:
+  name: mm
+  identifier: mm
+  description:
+  orgIdentifier: default
+  projectIdentifier: victest
+  type: Github
+  spec:
+    url: https://github.com/Archer1A
+    validationRepo: go-kits
+    authentication:
+      type: Http
+      spec:
+        type: UsernameToken
+        spec:
+          username: vic
+          tokenRef: github
+    executeOnDelegate: false
+    type: Account
