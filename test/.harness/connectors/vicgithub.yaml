@@ -1,0 +1,23 @@
+connector:
+  name: vic-github
+  identifier: vicgithub
+  description:
+  orgIdentifier: default
+  projectIdentifier: victest
+  type: Github
+  spec:
+    url: https://github.com/Archer1A
+    validationRepo: mm
+    authentication:
+      type: Http
+      spec:
+        type: UsernameToken
+        spec:
+          username: Archer1A
+          tokenRef: github
+    apiAccess:
+      type: Token
+      spec:
+        tokenRef: github
+    executeOnDelegate: false
+    type: Account
