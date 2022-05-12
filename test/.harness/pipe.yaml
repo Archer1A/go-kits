@@ -37,7 +37,7 @@ pipeline:
                                         primary:
                                             spec:
                                                 connectorRef: docker
-                                                imagePath: nginx
+                                                imagePath: vicccc/myapp
                                                 tag: <+input>
                                             type: DockerRegistry
                         infrastructure:
