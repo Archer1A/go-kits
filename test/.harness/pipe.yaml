@@ -68,13 +68,6 @@ pipeline:
                     failureStrategies:
                         - onFailure:
                               errors:
-                                  - Authentication
-                                  - Connectivity
-                                  - DelegateProvisioning
-                                  - Timeout
-                                  - Unknown
-                                  - Verification
-                                  - PolicyEvaluationFailure
-                                  - Authorization
+                                  - AllErrors
                               action:
                                   type: Abort
