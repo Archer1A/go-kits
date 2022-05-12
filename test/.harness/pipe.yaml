@@ -30,8 +30,8 @@ pipeline:
                                                           gitFetchType: Branch
                                                           paths:
                                                               - vvv
-                                                          repoName: vvvv
-                                                          branch: vv
+                                                          repoName: go-kits
+                                                          branch: main
                                                   skipResourceVersioning: false
                                     artifacts:
                                         primary:
