@@ -1,0 +1,67 @@
+pipeline:
+    name: pipe
+    identifier: pipe
+    projectIdentifier: victest
+    orgIdentifier: default
+    tags: {}
+    stages:
+        - parallel:
+              - stage:
+                    name: vic-stage
+                    identifier: vicstage
+                    description: ""
+                    type: Deployment
+                    spec:
+                        serviceConfig:
+                            serviceRef: vicsvc
+                            serviceDefinition:
+                                type: Kubernetes
+                                spec:
+                                    variables: []
+                                    manifests:
+                                        - manifest:
+                                              identifier: vvvv
+                                              type: K8sManifest
+                                              spec:
+                                                  store:
+                                                      type: Github
+                                                      spec:
+                                                          connectorRef: viccccc
+                                                          gitFetchType: Branch
+                                                          paths:
+                                                              - vvv
+                                                          repoName: vvvv
+                                                          branch: vv
+                                                  skipResourceVersioning: false
+                                    artifacts:
+                                        primary:
+                                            spec:
+                                                connectorRef: docker
+                                                imagePath: nginx
+                                                tag: <+input>
+                                            type: DockerRegistry
+                        infrastructure:
+                            environmentRef: vic_environment
+                            infrastructureDefinition:
+                                type: KubernetesDirect
+                                spec:
+                                    connectorRef: vicconn
+                                    namespace: harness
+                                    releaseName: release-<+INFRA_KEY>
+                            allowSimultaneousDeployments: true
+                        execution:
+                            steps:
+                                - step:
+                                      type: K8sRollingDeploy
+                                      name: vic-deploy
+                                      identifier: vicdeploy
+                                      spec:
+                                          skipDryRun: false
+                                          delegateSelectors:
+                                              - vic-test
+                                      timeout: 10m
+                                      failureStrategies: []
+                            rollbackSteps: []
+                    tags: {}
+                    delegateSelectors:
+                        - vic-test
