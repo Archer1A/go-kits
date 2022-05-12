@@ -1,0 +1,22 @@
+inputSet:
+  identifier: "input"
+  name: "in-put"
+  orgIdentifier: "default"
+  projectIdentifier: "victest"
+  pipeline:
+    identifier: "pipe"
+    stages:
+    - parallel:
+      - stage:
+          identifier: "vicstage"
+          type: "Deployment"
+          spec:
+            serviceConfig:
+              serviceDefinition:
+                type: "Kubernetes"
+                spec:
+                  artifacts:
+                    primary:
+                      type: "DockerRegistry"
+                      spec:
+                        tag: "1.28"
