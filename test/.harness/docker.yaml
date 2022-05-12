@@ -1,7 +1,6 @@
 connector:
   name: docker
   identifier: docker
-  description:
   orgIdentifier: default
   projectIdentifier: victest
   type: DockerRegistry
