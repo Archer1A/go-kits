@@ -1,0 +1,12 @@
+connector:
+  name: vic-conn
+  identifier: vicconn
+  description:
+  orgIdentifier: default
+  projectIdentifier: victest
+  type: K8sCluster
+  spec:
+    credential:
+      type: InheritFromDelegate
+    delegateSelectors:
+    - vic-test
