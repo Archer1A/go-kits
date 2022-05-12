@@ -19,4 +19,4 @@ inputSet:
                     primary:
                       type: "DockerRegistry"
                       spec:
-                        tag: "1.28"
+                        tag: "latest"
