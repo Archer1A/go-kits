@@ -1,0 +1,24 @@
+connector:
+  name: gitlab
+  identifier: gitlab
+  description:
+  orgIdentifier: default
+  projectIdentifier: victest
+  type: Gitlab
+  spec:
+    url: http://8.14.0.108/yijun
+    validationRepo: docs
+    authentication:
+      type: Http
+      spec:
+        type: UsernameToken
+        spec:
+          username: yijun
+          tokenRef: gitlab
+    apiAccess:
+      type: Token
+      spec:
+        tokenRef: gitlab
+    delegateSelectors:
+    - vic-test
+    type: Account
