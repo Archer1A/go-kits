@@ -1,0 +1,17 @@
+connector:
+  name: docker
+  identifier: docker
+  description:
+  orgIdentifier: default
+  projectIdentifier: victest
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: https://hub.docker.com
+    providerType: DockerHub
+    auth:
+      type: UsernamePassword
+      spec:
+        username: vicccc
+        passwordRef: docker
+    delegateSelectors:
+    - vic-test
