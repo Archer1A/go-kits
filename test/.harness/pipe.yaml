@@ -52,16 +52,25 @@ pipeline:
                         execution:
                             steps:
                                 - step:
-                                      type: K8sRollingDeploy
-                                      name: vic-deploy
-                                      identifier: vicdeploy
+                                      type: K8sApply
+                                      name: vic-apply
+                                      identifier: vicapply
                                       spec:
+                                          filePaths:
+                                              - vic-apply
                                           skipDryRun: false
+                                          skipSteadyStateCheck: false
                                           delegateSelectors:
                                               - vic-test
                                       timeout: 10m
-                                      failureStrategies: []
+                                      failureStrategies:
+                                          - onFailure:
+                                                errors:
+                                                    - AllErrors
+                                                action:
+                                                    type: Abort
                             rollbackSteps: []
+                        serviceDependencies: []
                     tags: {}
                     delegateSelectors:
                         - vic-test
