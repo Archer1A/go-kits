@@ -20,7 +20,7 @@ pipeline:
                                     variables: []
                                     manifests:
                                         - manifest:
-                                              identifier: vvvv
+                                              identifier: viccc
                                               type: K8sManifest
                                               spec:
                                                   store:
@@ -29,7 +29,7 @@ pipeline:
                                                           connectorRef: viccccc
                                                           gitFetchType: Branch
                                                           paths:
-                                                              - vvv
+                                                              - test
                                                           repoName: go-kits
                                                           branch: main
                                                   skipResourceVersioning: false
