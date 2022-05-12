@@ -65,3 +65,16 @@ pipeline:
                     tags: {}
                     delegateSelectors:
                         - vic-test
+                    failureStrategies:
+                        - onFailure:
+                              errors:
+                                  - Authentication
+                                  - Connectivity
+                                  - DelegateProvisioning
+                                  - Timeout
+                                  - Unknown
+                                  - Verification
+                                  - PolicyEvaluationFailure
+                                  - Authorization
+                              action:
+                                  type: Abort
