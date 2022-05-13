@@ -79,3 +79,9 @@ pipeline:
               tags: {}
               delegateSelectors:
                   - vic-test
+              failureStrategies:
+                  - onFailure:
+                        errors:
+                            - AllErrors
+                        action:
+                            type: MarkAsSuccess
