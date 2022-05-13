@@ -75,11 +75,6 @@ pipeline:
                                               - AllErrors
                                           action:
                                               type: MarkAsSuccess
-                                    - onFailure:
-                                          errors:
-                                              - AllErrors
-                                          action:
-                                              type: MarkAsSuccess
                       rollbackSteps: []
               tags: {}
               delegateSelectors:
