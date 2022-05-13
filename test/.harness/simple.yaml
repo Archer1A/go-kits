@@ -1,0 +1,86 @@
+pipeline:
+    name: simple
+    identifier: simple
+    projectIdentifier: victest
+    orgIdentifier: default
+    tags: {}
+    stages:
+        - stage:
+              name: simple
+              identifier: simple
+              description: ""
+              type: Deployment
+              spec:
+                  serviceConfig:
+                      serviceRef: vicsvc
+                      serviceDefinition:
+                          type: Kubernetes
+                          spec:
+                              variables: []
+                              manifests:
+                                  - manifest:
+                                        identifier: echo
+                                        type: K8sManifest
+                                        spec:
+                                            store:
+                                                type: Github
+                                                spec:
+                                                    connectorRef: viccccc
+                                                    gitFetchType: Branch
+                                                    paths:
+                                                        - echo
+                                                    repoName: go-kits
+                                                    branch: main
+                                            skipResourceVersioning: false
+                              artifacts:
+                                  primary:
+                                      spec:
+                                          connectorRef: docker
+                                          imagePath: vicccc/myapp
+                                          tag: <+input>
+                                      type: DockerRegistry
+                  infrastructure:
+                      environmentRef: vic_environment
+                      infrastructureDefinition:
+                          type: KubernetesDirect
+                          spec:
+                              connectorRef: vicconn
+                              namespace: default
+                              releaseName: release-<+INFRA_KEY>
+                      allowSimultaneousDeployments: false
+                  execution:
+                      steps:
+                          - step:
+                                type: ShellScript
+                                name: echo
+                                identifier: echo
+                                spec:
+                                    shell: Bash
+                                    onDelegate: true
+                                    source:
+                                        type: Inline
+                                        spec:
+                                            script: |-
+                                                echo "hello world"
+                                                sleep 3600
+                                    environmentVariables: []
+                                    outputVariables: []
+                                    executionTarget: {}
+                                    delegateSelectors:
+                                        - vic-test
+                                timeout: 10m
+                                failureStrategies:
+                                    - onFailure:
+                                          errors:
+                                              - AllErrors
+                                          action:
+                                              type: MarkAsSuccess
+                                    - onFailure:
+                                          errors:
+                                              - AllErrors
+                                          action:
+                                              type: MarkAsSuccess
+                      rollbackSteps: []
+              tags: {}
+              delegateSelectors:
+                  - vic-test
