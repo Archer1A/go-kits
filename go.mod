@@ -1,6 +1,6 @@
 module github.com/Archer1A/go-kits
 
-go 1.17
+go 1.21
 
 require (
 	go.uber.org/atomic v1.9.0
