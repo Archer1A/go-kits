@@ -8,13 +8,13 @@ import (
 )
 
 type IPage interface {
-	Page() int
-	PageSize() int
+	GetPage() int
+	GetPageSize() int
 }
 
 type IResponse[T any] interface {
-	Total() int
-	Rows() []T
+	GetTotal() int
+	GetRows() []T
 }
 type SyncAllResource[T any] func(ctx context.Context, page, pageSize int) (IResponse[T], error)
 
@@ -67,11 +67,11 @@ func (c *Client[T]) SyncAll(ctx context.Context, f SyncAllResource[T]) ([]T, err
 		return nil, err
 	}
 	var allResources []T
-	allResources = append(allResources, firstPageBody.Rows()...)
-	if firstPageBody.Total() <= c.MaxPageSize {
+	allResources = append(allResources, firstPageBody.GetRows()...)
+	if firstPageBody.GetTotal() <= c.MaxPageSize {
 		return allResources, nil
 	}
-	totalPage := (firstPageBody.Total() + c.MaxPageSize - 1) / c.MaxPageSize
+	totalPage := (firstPageBody.GetTotal() + c.MaxPageSize - 1) / c.MaxPageSize
 	errChan := make(chan error, totalPage-1)
 	pageChan := make(chan int, totalPage-1)
 	resultChan := make(chan []T, totalPage-1)
@@ -86,7 +86,7 @@ func (c *Client[T]) SyncAll(ctx context.Context, f SyncAllResource[T]) ([]T, err
 				for t := 0; t < c.MaxRetries; t++ {
 					resp, err := f(ctx, page, c.MaxPageSize)
 					if err == nil {
-						result = append(result, resp.Rows()...)
+						result = append(result, resp.GetRows()...)
 						lastErr = nil
 						break
 					}
