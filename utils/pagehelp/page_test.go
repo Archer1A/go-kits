@@ -13,11 +13,11 @@ type response struct {
 	rows  []User
 }
 
-func (r *response) Total() int {
+func (r *response) GetTotal() int {
 	return r.total
 }
 
-func (r *response) Rows() []User {
+func (r *response) GetRows() []User {
 	return r.rows
 }
 
