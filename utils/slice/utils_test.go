@@ -8,13 +8,13 @@ import (
 func TestSliceToMap(t *testing.T) {
 	t.Run("empty slice", func(t *testing.T) {
 		slice := []int{}
-		result := SliceToMap(slice, func(item int) int { return item })
+		result := ToMap(slice, func(item int) int { return item })
 		assert.Empty(t, result)
 	})
 
 	t.Run("slice of ints", func(t *testing.T) {
 		slice := []int{1, 2, 3, 4, 5}
-		result := SliceToMap(slice, func(item int) int { return item })
+		result := ToMap(slice, func(item int) int { return item })
 		assert.Equal(t, map[int]int{
 			1: 1,
 			2: 2,
@@ -26,7 +26,7 @@ func TestSliceToMap(t *testing.T) {
 
 	t.Run("slice of strings", func(t *testing.T) {
 		slice := []string{"a", "bb", "ccc"}
-		result := SliceToMap(slice, func(item string) int { return len(item) })
+		result := ToMap(slice, func(item string) int { return len(item) })
 		assert.Equal(t, map[int]string{
 			1: "a",
 			2: "bb",
@@ -43,7 +43,7 @@ func TestSliceToMap(t *testing.T) {
 			{ID: 1, Name: "Alice"},
 			{ID: 2, Name: "Bob"},
 		}
-		result := SliceToMap(slice, func(p person) int { return p.ID })
+		result := ToMap(slice, func(p person) int { return p.ID })
 		assert.Equal(t, map[int]person{
 			1: {ID: 1, Name: "Alice"},
 			2: {ID: 2, Name: "Bob"},
@@ -52,7 +52,7 @@ func TestSliceToMap(t *testing.T) {
 
 	t.Run("duplicate keys - last one wins", func(t *testing.T) {
 		slice := []int{1, 2, 3, 2, 1}
-		result := SliceToMap(slice, func(item int) int { return item % 2 }) // keys will be 0 and 1
+		result := ToMap(slice, func(item int) int { return item % 2 }) // keys will be 0 and 1
 		assert.Equal(t, map[int]int{
 			0: 2, // last even number
 			1: 1, // last odd number
@@ -62,7 +62,7 @@ func TestSliceToMap(t *testing.T) {
 	t.Run("custom comparable type as key", func(t *testing.T) {
 		type myKey string
 		slice := []string{"a", "b", "c"}
-		result := SliceToMap(slice, func(item string) myKey { return myKey(item) })
+		result := ToMap(slice, func(item string) myKey { return myKey(item) })
 		assert.Equal(t, map[myKey]string{
 			"a": "a",
 			"b": "b",
