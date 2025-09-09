@@ -3,10 +3,21 @@ package pagehelp
 import (
 	"context"
 	"fmt"
+	"sync"
 	"testing"
 )
 
 type User string
+
+func Test_panic(t *testing.T) {
+	var m map[string]int
+	if _, ok := m["a"]; ok {
+
+	}
+	m["a"] = 1
+	mutex := sync.Mutex{}
+	mutex.Lock()
+}
 
 type response struct {
 	total int

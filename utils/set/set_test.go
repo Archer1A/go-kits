@@ -1,6 +1,7 @@
 package set
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -138,4 +139,42 @@ func Test_set_Values(t *testing.T) {
 			}
 		})
 	}
+}
+func myFunc(m map[string]string) {
+
+	m["2"] = "2"
+	fmt.Printf("myfunc %v %p\n", m, m)
+
+}
+func setNil(m map[string]string) {
+	m = make(map[string]string)
+}
+
+func TestMap(t *testing.T) {
+	newMap := map[string]string{"hello": "world"}
+	fmt.Printf("Before %v %p\n", newMap, newMap)
+	myFunc(newMap)
+	fmt.Printf("After %v %p\n", newMap, newMap)
+	setNil(newMap)
+	fmt.Printf("setNil %v %p\n", newMap, newMap)
+
+}
+
+func appendSlice(arr []string) {
+
+	arr = append(arr, "world")
+	fmt.Printf("func %v %p \n", arr, arr)
+}
+
+func updateIndex(arr []string) {
+	arr[0] = "world"
+}
+func TestSlice(t *testing.T) {
+	slice := []string{"hello"}
+	fmt.Printf("Start %v %p \n", slice, slice)
+	appendSlice(slice)
+	fmt.Printf("append %v %p \n", slice, slice)
+	updateIndex(slice)
+	fmt.Printf("update %v %p \n", slice, slice)
+
 }
